@@ -5,6 +5,11 @@ body {
     padding: 0;
 }
 
+img {
+    height: 10%;
+    width: auto;
+}
+
 .navbar {
     background-color: #343a40;
     padding: 1rem;

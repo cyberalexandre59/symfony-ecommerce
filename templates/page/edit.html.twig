@@ -5,10 +5,6 @@
 {% block body %}
     <h1>Modifier l'article</h1>
 
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
-
     <form method="post">
         <label for="title">Titre :</label>
         <input type="text" id="name" name="name" value="{{ article.name }}" required>

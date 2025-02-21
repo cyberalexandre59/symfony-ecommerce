@@ -1,25 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<form method="post">
+    <h2>Connexion</h2>
+
+    {{ form_start(loginForm) }}
+
     <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        {{ form_row(loginForm.username) }}
     </div>
 
     <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="_password" />
+        {{ form_row(loginForm.password) }}
     </div>
 
-    <!-- CSRF token -->
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+    <div>
+        {{ form_row(loginForm._token) }}
+    </div>
 
-    <button type="submit">Login</button>
+    <button type="submit">Se connecter</button>
+
+    {{ form_end(loginForm) }}
 
     {% if error %}
         <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-</form>
-<a type="submit" href="{{ path('app_register') }}">Inscription</a>
+
+    <a href="{{ path('app_register') }}">Inscription</a>
 {% endblock %}
