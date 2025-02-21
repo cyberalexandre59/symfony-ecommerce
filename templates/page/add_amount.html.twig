@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter de l'argent{% endblock %}
+
+{% block body %}
+    <h1>Ajouter du crédit</h1>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST">
+        <label for="amount">Montant à ajouter (€) :</label>
+        <input type="number" step="0.01" name="amount" required>
+
+        <h3>Méthode de paiement</h3>
+        
+        <input type="radio" id="card" name="payment_method" value="card" required>
+        <label for="card">Carte bancaire</label>
+
+        <input type="radio" id="paypal" name="payment_method" value="paypal" required>
+        <label for="paypal">PayPal</label>
+
+        <div id="card-info" style="display: none;">
+            <label>Numéro de carte :</label>
+            <input type="text" name="card_number">
+            
+            <label>Date d'expiration :</label>
+            <input type="month" name="card_expiration">
+            
+            <label>Code CVC :</label>
+            <input type="text" name="card_cvc">
+        </div>
+
+        <div id="paypal-info" style="display: none;">
+            <label>Email PayPal :</label>
+            <input type="email" name="paypal_email">
+        </div>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <script>
+        document.querySelectorAll('input[name="payment_method"]').forEach(input => {
+            input.addEventListener('change', function () {
+                document.getElementById('card-info').style.display = this.value === 'card' ? 'block' : 'none';
+                document.getElementById('paypal-info').style.display = this.value === 'paypal' ? 'block' : 'none';
+            });
+        });
+    </script>
+{% endblock %}

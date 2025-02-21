@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Article{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Détails de l'Article</h1>
+
+    <div class="article-detail">
+        <h2>{{ article.name }}</h2>
+        <p>{{ article.description }}</p>
+        <p><strong>Prix : </strong>{{ article.price }}€</p>
+        <img src="/uploads/{{ article.getImageLink() }}" alt="{{ article.name }}">
+    </div>
+
+    <form action="{{ path('app_cart_add', {'articleId': article.id}) }}" method="POST">
+        <button type="submit">Ajouter au panier</button>
+    </form>
+
+{% endblock %}

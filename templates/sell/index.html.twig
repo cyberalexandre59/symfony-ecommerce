@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre en vente un article{% endblock %}
+
+{% block body %}
+    <h1>Vendre un article</h1>
+
+    {{ form_start(sellForm) }}
+        {{ form_row(sellForm.name) }}
+        {{ form_row(sellForm.description) }}
+        {{ form_row(sellForm.price) }}
+        {{ form_row(sellForm.image_link) }}
+        {{ form_row(sellForm.author) }}
+    {{ form_end(sellForm) }}
+
+{% endblock %}

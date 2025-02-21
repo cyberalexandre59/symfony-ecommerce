@@ -1,0 +1,44 @@
+{# templates/page/cart.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Mon Panier</h1>
+    
+    <a href="{{ path('app_cart_validate') }}" class="btn btn-success">Valider le panier</a>
+    <a href="{{ path('app_cart_add_amount') }}" class="btn btn-success">Ajouter des fonds</a>
+
+    {% if groupedArticles is not empty %}
+        <div class="cart-items">
+            {% for articleId, articleData in groupedArticles %}
+                <div class="cart-item">
+                    <h2>{{ articleData.article.name }}</h2>
+                    <p>{{ articleData.article.description }}</p>
+                    <p><strong>Prix : </strong>{{ articleData.article.price }}€</p>
+                    <img src="/uploads/{{ articleData.article.getImageLink() }}" alt="{{ articleData.article.name }}">
+                    <p><strong>Quantité : </strong>{{ articleData.quantity }}</p>
+
+                    <div class="cart-buttons">
+                        <a href="{{ path('app_cart_add', {'articleId': articleData.article.id}) }}" class="btn">Ajouter</a>
+                        {% if articleData.quantity > 1 %}
+                            <a href="{{ path('app_cart_remove', {'articleId': articleData.article.id}) }}" class="btn">Retirer</a>
+                        {% endif %}
+                        <form action="{{ path('app_cart_remove', {'articleId': articleId}) }}" method="post">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Votre panier est vide.</p>
+    {% endif %}
+{% endblock %}
+

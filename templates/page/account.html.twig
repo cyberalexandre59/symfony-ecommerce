@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+
+    <h2>Informations personnelles</h2>
+    {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+    {{ form_end(form) }}
+
+    <h2>Mes articles</h2>
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li><a href="{{ path('app_edit_article', { 'id': article.id }) }}">{{ article.name }} - {{ article.price }}€</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Vous n'avez pas encore d'articles.</p>
+    {% endif %}
+
+    <h2>Mes factures</h2>
+    {% if invoices %}
+        <ul>
+            {% for invoice in invoices %}
+                <li>
+                    Facture du {{ invoice.transactionDate|date('d/m/Y') }} - {{ invoice.amount }}€
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune facture disponible.</p>
+    {% endif %}
+
+    <h2>Ajouter un montant</h2>
+    <a href="{{ path('app_cart_add_amount') }}" class="btn btn-success">Ajouter des fonds</a>
+    
+{% endblock %}

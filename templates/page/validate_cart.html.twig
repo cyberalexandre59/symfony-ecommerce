@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation du panier{% endblock %}
+
+{% block body %}
+    <h1>Validation de votre panier</h1>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <p>Total à payer : <strong>{{ totalPrice }}€</strong></p>
+
+    <h2>Informations de facturation</h2>
+    <form method="POST" action="{{ path('app_cart_validate') }}" data-turbo="false">
+        <label for="address">Adresse :</label>
+        <input type="text" name="address" required>
+
+        <label for="city">Ville :</label>
+        <input type="text" name="city" required>
+
+        <label for="zip_code">Code postal :</label>
+        <input type="text" name="zip_code" required>
+
+        <button type="submit">Valider la commande</button>
+    </form>
+{% endblock %}
+

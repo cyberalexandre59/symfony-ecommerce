@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'article{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'article</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post">
+        <label for="title">Titre :</label>
+        <input type="text" id="name" name="name" value="{{ article.name }}" required>
+
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" required>{{ article.description }}</textarea>
+
+        <label for="price">Prix :</label>
+        <input type="number" step="0.01" id="price" name="price" value="{{ article.price }}" required>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+        <input type="hidden" name="delete" value="1">
+        <button type="submit" class="btn btn-danger">Supprimer l'article</button>
+    </form>
+
+{% endblock %}

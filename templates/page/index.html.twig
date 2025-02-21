@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des Articles</h1>
+
+    <div class="articles">
+        {% for article in articles %}
+            <div class="article">
+                <a href="{{ path('app_article_detail', {'id': article.id}) }}">
+                    <h2>{{ article.name }}</h2>
+                    <p><strong>Prix : </strong>{{ article.price }}€</p>
+                    <img src="/uploads/{{ article.getImageLink() }}" alt="{{ article.name }}">
+                </a>
+            </div>
+        {% else %}
+            <p>Aucun article trouvé.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
